@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.widget.ListView;
 
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
@@ -57,19 +58,22 @@ public class MainActivity extends ActionBarActivity {
 // Create the array
             LugarList = new ArrayList<Lugar>();
             try {
-// Locate the class table named "Country" in Parse.com
+
                 ParseQuery<ParseObject> query = new ParseQuery<ParseObject> ("Lugar");
-// Locate the column named "ranknum" in Parse.com and order list
-// by ascending
-                query.orderByAscending("createdAt");
                 ob = query.find();
 
                 for (ParseObject LugarBebidas : ob) {
+
                     Lugar LugarBar = new Lugar();
+
+                    ParseFile picBar = LugarBebidas.getParseFile("foto");
+
                     LugarBar.setName((String) LugarBebidas.get("name"));
                     LugarBar.setDescripcion((String) LugarBebidas.get("descripcion"));
                     LugarBar.setLatitud((String) LugarBebidas.get("Latitud"));
                     LugarBar.setLongitud((String) LugarBebidas.get("Longitud"));
+
+                    LugarBar.setImage(picBar.getData());
                     LugarList.add(LugarBar);
                 }
             } catch (ParseException e) {

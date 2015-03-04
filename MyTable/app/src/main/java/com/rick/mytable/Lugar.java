@@ -9,6 +9,7 @@ public class Lugar {
     private String descripcion;
     private String Latitud;
     private String Longitud;
+    private byte[] image;
 
 
     public String getName() {
@@ -41,5 +42,13 @@ public class Lugar {
 
     public void setLongitud(String longitud) {
         Longitud = longitud;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 }

@@ -1,14 +1,17 @@
 package com.rick.mytable;
 
+import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.List;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
@@ -36,6 +39,7 @@ public class ListViewAdapter extends BaseAdapter {
             TextView description;
             TextView latitude;
             TextView longitude;
+            ImageView picBar;
         }
 
         @Override
@@ -66,6 +70,7 @@ public class ListViewAdapter extends BaseAdapter {
                 holder.description = (TextView) view.findViewById(R.id.description);
                 holder.latitude = (TextView) view.findViewById(R.id.latitude);
                 holder.longitude = (TextView) view.findViewById(R.id.longitud);
+                holder.picBar = (ImageView) view.findViewById(R.id.imgBar);
 
                 view.setTag(holder);
 
@@ -79,6 +84,7 @@ public class ListViewAdapter extends BaseAdapter {
             holder.description.setText(barList.get(position).getDescripcion());
             holder.latitude.setText(barList.get(position).getLatitud());
             holder.longitude.setText(barList.get(position).getLongitud());
+            holder.picBar.setImageDrawable(Drawable.createFromStream(new ByteArrayInputStream(barList.get(position).getImage()),barList.get(position).getName()));
 
             view.setOnClickListener(new OnClickListener() {
 
@@ -91,7 +97,7 @@ public class ListViewAdapter extends BaseAdapter {
                     intent.putExtra("descripcion",(barList.get(position).getDescripcion()));
                     intent.putExtra("Latitud",(barList.get(position).getLatitud()));
                     intent.putExtra("Longitud",(barList.get(position).getLongitud()));
-
+                    intent.putExtra("image",(barList.get(position).getImage()));
                     mContext.startActivity(intent);
                 }
             });
